@@ -31,7 +31,7 @@ public class CreateConnection {
 	}
 	
 	public ResultSet checkUserHero(String name) throws SQLException {
-		String str = "SELECT `class` FROM `HEROES` WHERE name = '"+name+"';";
+		String str = "SELECT * FROM `HEROES` WHERE name = '"+name+"';";
 		
 		ResultSet res =  statement.executeQuery(str);
 		
@@ -39,10 +39,17 @@ public class CreateConnection {
 		
 	}
 	
+	public ResultSet findHero(String name, String hero) throws SQLException {
+		String str = "SELECT * FROM `HEROES` WHERE name = '"+name+"' and class = '"+hero+"'";
+//		select * from HEROES where name = "zakhele" and class = "viper";
+		ResultSet res = statement.executeQuery(str);
+		return res;
+	}
+	
 	public void createUserTable() throws SQLException {
 		String str;
 		
-		str = "create table IF NOT EXISTS user(name varchar(255) not null,primary key (name) )";
+		str = "create table IF NOT EXISTS user(id integer not null AUTO_INCREMENT,name varchar(255) ,primary key (id) )";
 		statement.execute(str);
 		
 	}
@@ -56,19 +63,19 @@ public class CreateConnection {
 	public void createHeroTable() throws SQLException {
 
 		String str;
-		str = "create table IF NOT EXISTS HEROES(" +
-				"name varchar(255) not null  unique," +
-				"class varchar(255) not null," +
-				"level integer default 0 not null," +
-				"exp integer default 0 not null," +
-				"hp integer not null ," +
-				"attack integer," +
-				"defence integer," +
-				"weapon integer," +
-				"armor integer," +
-				"helm integer ," +
-				"primary key (name),"+
-				"FOREIGN KEY(name) REFERENCES `user`(name))";
+		str = "create table if not exists HEROES("
+				+ "id integer not null ,"
+				+ "name varchar(255) not null,"
+				+ " class varchar(255),"
+				+ "level integer default 0 not null,"
+				+ "exp integer default 0 not null,"
+				+ "hp integer not null,"
+				+ "attack  integer,"
+				+ " defence integer,"
+				+ "weapon integer,"
+				+ " armor integer ,"
+				+ " helm integer,"
+				+ "foreign key(id) references `user`(id));";
 		
 //		System.out.println("we're checking on what is happening with regards to this!.");
 		statement.execute(str);
@@ -78,7 +85,7 @@ public class CreateConnection {
 		
 		String sql;
 		
-		sql = "INSERT INTO HEROES.HEROES (name, class, level, exp, hp, attack, defence, weapon, armor, helm) VALUES ('"+name+"', '"+hero_class+"','"+ level +"','"+ exp + "','"+hp+"','"+attack+"','"+ defence+"','"+weapon+"','"+armor+"','"+helm+"')";
+		sql = "INSERT INTO HEROES.HEROES (id, name, class, level, exp, hp, attack, defence, weapon, armor, helm) VALUES ((select `id` from `user` where name ='"+name+"') ,'"+name+"', '"+hero_class+"','"+ level +"','"+ exp + "','"+hp+"','"+attack+"','"+ defence+"','"+weapon+"','"+armor+"','"+helm+"')";
 		statement.execute(sql);
 	}
 	

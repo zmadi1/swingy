@@ -11,6 +11,7 @@ public class ConsoleInput {
 
     private  static String str;
     private static  String hero;
+    private static String name;
 
 
     public  static void consoleOutput() throws IOException, SQLException{
@@ -28,7 +29,7 @@ public class ConsoleInput {
                 //character();
             } else if (str.toLowerCase().equals("load save")) {
             	System.out.println("Please provide your username:");
-            	loadUser(str);
+            	loadUser();
             	
             } else if (str.toLowerCase().equals("gui")) {
             	
@@ -44,10 +45,10 @@ public class ConsoleInput {
     	
 		String sql = "CREATE DATABASE IF NOT EXISTS HEROES";
 		conn.connection(sql);
-		
+		conn.connect();
 		
 		conn.createUserTable();
-		conn.createHeroTable();
+//		conn.createHeroTable();
 		
 
         Scanner scanner = new Scanner(System.in);
@@ -60,8 +61,10 @@ public class ConsoleInput {
             
             
             if(!myRs.next()) {
+            	
             	conn.insertUser(str);
-            	character();
+            	conn.createHeroTable();
+            	character(str);
          
             	
             }else {
@@ -71,7 +74,7 @@ public class ConsoleInput {
     }
     
     
-    public  static void loadUser(String name) throws IOException, SQLException{
+    public  static void loadUser() throws IOException, SQLException{
     	
     	CreateConnection conn = new CreateConnection();
 		
@@ -79,47 +82,77 @@ public class ConsoleInput {
 //		conn.createUserTable();
 //		conn.createHeroTable();
 		
-
+    	
         Scanner scanner = new Scanner(System.in);
         
         while (scanner.hasNext()){
         	
             str = scanner.nextLine();
-//            System.out.println(str);
+
             conn.connect();
             ResultSet myRs = conn.checkUserHero(str);
+            name = str;
             
-//            System.out.println(myRs.getRow());
-            if(myRs.next()) { 
-            	int i = 1;
-//            	myRs.beforeFirst();
-//            	System.out.println(myRs.getString(1));
-            	System.out.println("These are your exsisting heroes :");
 
-//            	while(myRs.next()) {
+            if(myRs.isBeforeFirst()) { 
+            	int i = 1;
+
+
+            	while(myRs.next()) {
             		System.out.println("["+i+".]"+myRs.getString("class"));
-//            		i++;
-//            		}
+            		i++;
+            		}
             	choose();
             }else {
             	System.out.println("Sorry the username of that name does not exist!");
             }
-//            choose();
+
         }
     }
             
     public  static void choose() throws IOException, SQLException{
     	
         Scanner scanner = new Scanner(System.in);
+        CreateConnection conn = new CreateConnection();
+        ResultSet myRs ;
+        
         
         System.out.print("To create a new Hero type new or choose your existing heroes type new: ");
-        
+        conn.connect();
         while (scanner.hasNext()){
         	
+        	
             str = scanner.nextLine();
+            myRs = conn.findHero(name, str);
             
-            if (str.toLowerCase().equals("Hunter")) {
-                System.out.println("You have chosen the hunter");
+            
+            if (str.toLowerCase().equals("hunter")) {
+                System.out.println("You have chosen the hunter these are your heroes stats");
+                if(myRs.isBeforeFirst()) { 
+                	int i = 1;
+
+
+                	if(myRs.next()) {
+                		System.out.println("["+i+".]"+
+                	myRs.getString("class"));
+                	System.out.println("level   "+myRs.getString("level"));
+                	System.out.println("exp     "+myRs.getString("exp"));
+                	System.out.println("hp      "+myRs.getString("hp"));
+                	System.out.println("attack  "+myRs.getString("attack"));
+                	System.out.println("defence "+myRs.getString("defence"));
+                	System.out.println("weapon  "+myRs.getString("weapon"));
+                	System.out.println("armor   "+myRs.getString("armor"));
+                	System.out.println("helm    "+myRs.getString("helm"));
+                		i++;
+                		}
+                	choose();
+                }else {
+                	System.out.println("Sorry the username of that name does not exist!");
+                }
+
+                
+                
+                System.out.println(name);
 
                 //character();
             } else if (str.toLowerCase().equals("viper")) {
@@ -128,18 +161,77 @@ public class ConsoleInput {
             	
             } else if (str.toLowerCase().equals("new")) {
             	System.out.println("you are about to create a new hero");
+            	ExistingUsername(name);
             	
             }
 
         }
     }
+    
+    
+    public  static void ExistingUsername(String name) throws IOException, SQLException{
+    	
+    	CreateConnection conn = new CreateConnection();
+ 
+    	
+//		String sql = "CREATE DATABASE IF NOT EXISTS HEROES";
+//		conn.connection(sql);
+		
+		conn.connect();
+//		conn.createUserTable();
+		conn.createHeroTable();
+//		conn.insertUser(name);
+         characterUpdate(name);
+		
 
-    public static void character() throws IOException, SQLException {
+//        Scanner scanner = new Scanner(System.in);
+        
+//        while (scanner.hasNext()){
+        	
+//            str = scanner.nextLine();
+            
+           
+//            }
+    }
+    
+    
+    public static void characterUpdate(String name) throws IOException, SQLException {
     	CreateConnection conn = new CreateConnection();
     	
         System.out.println("Select your Hero OPTIONS: 'Hunter' | 'moowalker' | 'night-crawler' | 'viper' ");
 
         Scanner scanner = new Scanner(System.in);
+        conn.connect();
+
+
+        while(scanner.hasNext()){
+            hero = scanner.nextLine();
+
+            if (hero.toLowerCase().equals("hunter")){
+               	 conn.insetIntoDataBase(name, "Hunter", 1, 0, 0, 0, 0, 0, 0, 0);
+
+            }else if(hero.toLowerCase().equals("moonwalker")){
+            	conn.insetIntoDataBase(name, "moonwalker", 1, 0, 0, 0, 0, 0, 0, 0);
+
+            }else if(hero.toLowerCase().equals("night-crawler")){
+            	conn.insetIntoDataBase(name, "night-crawler", 1, 0, 0, 0, 0, 0, 0, 0);
+
+            }else if(hero.toLowerCase().equals("viper")){
+            	conn.insetIntoDataBase(name, "viper", 1, 0, 0, 0, 0, 0, 0, 0);
+
+            }else {
+                System.out.println("Invalid input choose between the given option: ");
+            }
+        }
+    }
+
+    public static void character(String name) throws IOException, SQLException {
+    	CreateConnection conn = new CreateConnection();
+    	
+        System.out.println("Select your Hero OPTIONS: 'Hunter' | 'moowalker' | 'night-crawler' | 'viper' ");
+
+        Scanner scanner = new Scanner(System.in);
+        conn.connect();
 
 
 
