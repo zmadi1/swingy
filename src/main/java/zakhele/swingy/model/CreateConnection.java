@@ -29,6 +29,16 @@ public class CreateConnection {
 		return res;
 		
 	}
+	
+	public ResultSet checkUserHero(String name) throws SQLException {
+		String str = "SELECT `class` FROM `HEROES` WHERE name = '"+name+"';";
+		
+		ResultSet res =  statement.executeQuery(str);
+		
+		return res;
+		
+	}
+	
 	public void createUserTable() throws SQLException {
 		String str;
 		
@@ -60,7 +70,7 @@ public class CreateConnection {
 				"primary key (name),"+
 				"FOREIGN KEY(name) REFERENCES `user`(name))";
 		
-		System.out.println("we're checking on what is happening with regards to this!.");
+//		System.out.println("we're checking on what is happening with regards to this!.");
 		statement.execute(str);
 	}
 	
@@ -72,18 +82,15 @@ public class CreateConnection {
 		statement.execute(sql);
 	}
 	
+	public void connect() throws SQLException {
+		statement.execute("USE HEROES");
+	
+	}
+	
 	public void  connection( String sql) throws SQLException {
 
-
-		//3.execute SQL query
-		
 		statement.execute(sql);
 		statement.execute("USE HEROES");
-//		ResultSet myRs = statement.executeQuery("select * from employee");
-//		//4.process  the result set
-//		while(myRs.next()){
-//			System.out.println(myRs.getString("last_name") +", "+ myRs.getString("first_name"));
-//		}
 	}
 	public void close() throws IOException, SQLException {
 		conn.close();

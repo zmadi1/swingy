@@ -59,7 +59,7 @@ public class Swingy {
 			System.out.println( ANSI_CYAN_BACKGROUND+"+++++                                       +++++"+ANSI_RESET);
 			System.out.println( ANSI_CYAN_BACKGROUND+"+++++       Welcome To Swingy               +++++"+ANSI_RESET);
 			System.out.println( ANSI_CYAN_BACKGROUND+"+++++               OPTIONS                 +++++"+ANSI_RESET);
-			System.out.println( ANSI_CYAN_BACKGROUND+"+++++          'create' | 'load save'| 'gui'+++++"+ANSI_RESET);
+			System.out.println( ANSI_CYAN_BACKGROUND+"+++++          'create-user' | 'load save'| 'gui'+++++"+ANSI_RESET);
 			System.out.println( ANSI_CYAN_BACKGROUND+"+++++                                       +++++"+ANSI_RESET);
 			System.out.println( ANSI_CYAN_BACKGROUND+"+++++++++++++++++++++++++++++++++++++++++++++++++"+ANSI_RESET);
 			System.out.println("Welcome to the console swingy game,select your OPTION:");
