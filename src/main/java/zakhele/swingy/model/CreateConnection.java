@@ -21,6 +21,69 @@ public class CreateConnection {
 
 
 	}
+	
+	public ResultSet UserHp(String name,String hero) throws SQLException {
+		String str = "SELECT `hp` FROM `HEROES` WHERE name = '"+name+"' and class = '"+hero+"'";
+		
+		ResultSet res =  statement.executeQuery(str);
+		
+		return res;
+		
+	}
+	
+	public ResultSet UserExp(String name,String hero) throws SQLException {
+		String str = "SELECT `exp` FROM `HEROES` WHERE name = '"+name+"' and class = '"+hero+"'";
+		
+		ResultSet res =  statement.executeQuery(str);
+		
+		return res;
+		
+	}
+	
+	public ResultSet UserLevel(String name,String hero) throws SQLException {
+		String str = "SELECT `level` FROM `HEROES` WHERE name = '"+name+"' and class = '"+hero+"'";
+		
+		ResultSet res =  statement.executeQuery(str);
+		
+		return res;
+		
+	}
+	
+	public ResultSet UserAttack(String name,String hero) throws SQLException {
+		String str = "SELECT `attack` FROM `HEROES` WHERE name = '"+name+"' and class = '"+hero+"'";
+		
+		ResultSet res =  statement.executeQuery(str);
+		
+		return res;
+		
+	}
+	
+	public ResultSet UserStats(String name,String hero) throws SQLException {
+		String str = "SELECT * FROM `HEROES` WHERE name = '"+name+"' and class = '"+hero+"'";
+		
+		ResultSet res =  statement.executeQuery(str);
+		
+		return res;
+		
+	}
+	
+	public ResultSet UserWeapon(String name,String hero) throws SQLException {
+		String str = "SELECT `weapon` FROM `HEROES` WHERE name = '"+name+"' and class = '"+hero+"'";
+		
+		ResultSet res =  statement.executeQuery(str);
+		
+		return res;
+		
+	}
+	public ResultSet UserArmor(String name,String hero) throws SQLException {
+		String str = "SELECT `hp` FROM `HEROES` WHERE name = '"+name+"' and class = '"+hero+"'";
+		
+		ResultSet res =  statement.executeQuery(str);
+		
+		return res;
+		
+	}
+	
 	public ResultSet checkUser(String name) throws SQLException {
 		String str = "SELECT `name` FROM user WHERE name = '"+name+"';";
 		
