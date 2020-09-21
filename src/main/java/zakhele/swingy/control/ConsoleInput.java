@@ -213,12 +213,15 @@ public class ConsoleInput {
     			System.out.println("E - is for moving EAST");
     	    	System.out.println();
     	    	System.out.println();
+//    	    	System.out.println("Type confirm to start");
     			map.map();
-    			map.south();
+    		
+//    			map.south();
     		
     		}
 //    		if(input.toLowerCase().equals("s")) {
 //				System.out.println("you have moved south");
+//    			map.south();
 //		    	
 //				
 //			}
@@ -297,7 +300,7 @@ public class ConsoleInput {
             	conn.insetIntoDataBase(name, "night-crawler", 1, 0, 0, 0, 0, 0, 0, 0);
 
             }else if(hero.toLowerCase().equals("viper")){
-            	conn.insetIntoDataBase(name, "viper", 1, 0, 0, 0, 0, 0, 0, 0);
+            	conn.insetIntoDataBase(name, "viper", 3, 0, 0, 0, 0, 0, 0, 0);
 
             }else {
                 System.out.println("Invalid input choose between the given option: ");
