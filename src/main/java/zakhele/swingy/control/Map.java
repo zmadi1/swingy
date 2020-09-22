@@ -1,9 +1,15 @@
 package zakhele.swingy.control;
 
+import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Scanner;
+import zakhele.swingy.model.*;
 
 public class Map {
 	
+	private String name1;
+	private String str1;
 	private int level;
 	private int exp;
 	private int hp;
@@ -12,6 +18,7 @@ public class Map {
 	private int weapon;
 	private int armor;
 	private int helm;
+	
 	
 	
 	Map(int level,int exp,int hp,int attack,int defence ,int weapon, int armor, int helm){
@@ -26,10 +33,26 @@ public class Map {
 		
 	}
 	
-	public void map() {
+	public void map(String name,String str) throws IOException, SQLException {
 		
+		CreateConnection conn = new CreateConnection();
 		Scanner start = new Scanner(System.in);
 		String startLoop;
+		name1 = name;
+		str1 = str;
+		
+//		conn.connect();
+//		
+////		if(isBeforeFirst())
+//		
+//		ResultSet myRs;
+//		
+//		myRs = conn.findHero(name, str);
+//		
+//		if(myRs.isBeforeFirst())
+//			if(myRs.next())
+//				System.out.println(myRs.getString("level"));
+		
 		
     	int position = (level-1)*5+10-(level % 2);
     	
@@ -75,6 +98,36 @@ public class Map {
 		
 	}
 	
+	public void newMap(int p) throws IOException, SQLException {
+		
+		Scanner start = new Scanner(System.in);
+		String startLoop;
+		
+    	int position = p;
+    	
+    	String map[][] = new String[position][position];
+    	
+    	int t,i;
+    	
+    	for(t=0;t < position;++t) {
+    		for(i = 0; i < position;++i) {
+    			map[t][i] = "*";
+    			if(i == t)
+    				map[position/2][position/2] = "@";
+    			System.out.print(map[t][i] + "   ");
+    		}
+    		System.out.println();
+    	}
+    	while(start.hasNext()) {
+    		startLoop = start.nextLine();
+    		
+    		if(startLoop.toLowerCase().equals("s")) {
+    			south("s");
+    		}
+    	}
+    	
+	}
+	
 	public void east() {
     	int position = (level-1)*5+10-(level % 2);
     	
@@ -111,10 +164,24 @@ public class Map {
     }
 
 	
-	public void south(String str) {
+	public void south(String str) throws IOException, SQLException {
     	
+		CreateConnection conn = new CreateConnection();
 		int position = (level-1)*5+10-(level % 2);
-    	
+		conn.connect();
+		
+		ResultSet Rs = conn.findHero(name1, str1);
+		
+		conn.connect();
+		Rs = conn.findHero(name1, str1);
+		if(Rs.isBeforeFirst())
+			if(Rs.next())
+				level = Rs.getInt("level");
+				position = (level-1)*5+10-(level % 2);
+		
+		conn.connect();
+		ResultSet myRs;
+		
     	int k = 1;
     	int col1 = 1;
     	int row1 = 1;
@@ -134,16 +201,19 @@ public class Map {
 						map[row][col] = "@";
 						col1 = col;
 						row1 = row;
+
 						j++;
 					}else {
 						map[row][col] = "*";
 					}
+
 					System.out.print(map[row][col] + "   ");
 				}
 				System.out.println();
     			}
 		}
 		l = 1;
+		System.out.println("This is the first SOUTH*************");
 		while(scanner.hasNext()) {
 			input = scanner.nextLine();
 			k= (position/2)-j;
@@ -156,49 +226,67 @@ public class Map {
 				for(row=0;row < position;++row) {
 					for(col = 0; col < position;++col) {
 						if(row ==(position - k) && col == position/2 ) {
+							
+							
 							map[row][col] = "@";
 							col1 = col;
 							row1 = row;
+							
 							j++;
+
+							
 						}else {
 							map[row][col] = "*";
 						}
+
+						
+					
 						System.out.print(map[row][col] + "   ");
+
 					}
 					System.out.println();
+					if(j >= 4) {
+						
+						conn.connect();
+						
+						conn.updateLevel();
+						conn.connect();
+						myRs = conn.findHero(name1, str1);
+						if(myRs.isBeforeFirst())
+							if(myRs.next())
+								level = myRs.getInt("level");
+						int p = (level-1)*5+10-(level % 2);
+						System.out.println();
+						System.out.println("Congradulation you have move to level 2");
+
+						newMap(p);
+					}
+
 	    		}
-//				k = 1;
+
 			}else if(input.toLowerCase().equals("n")) {
 				k = 1;
+				j=j- k;
 
 		    	for(row=0;row < position;++row) {
 		    		for(col = 0; col < position;++col) {
 		    			map[row][col] = "*";			
 		    			if(row ==row1-l && col == col1 ){
 		    				map[row][col] = "@";
+
 		    				l++;
 		    			}
 		    		System.out.print(map[row][col] + "   ");
 		    		}
 		    	System.out.println();
 
-//				System.out.println("This is row "+row);
-//				System.out.println("This is col "+col);
+
 		    	}
-		    	col = col1;
-				row = row1;
-		    	
 
 				
 		    }else if(input.toLowerCase().equals("e")) {
 		    	System.out.println("You have moved one unit east");
-//		    	k = 1;
-		    	
-//		    	while(scanner.hasNext()) {
-//		    		str = scanner.nextLine();
-		    		
-//		    		if(str.toLowerCase().equals("e")) {
-		    			
+
 
 		    	    	for(row=0;row < position;++row) {
 		    	    		for(col = 0; col < position;++col) {
@@ -211,10 +299,7 @@ public class Map {
 		    	    		}
 		    	    		System.out.println();
 		    	    	}
-		    	    	
-//		    		}
-//		    	}
-//		    	east();
+
 		    	
 		    }else if(str.toLowerCase().equals("w"))
 		    	west();
@@ -268,7 +353,7 @@ public class Map {
     	int row,col;
     	
     	
-//    	System.out.println(position);
+    	
     	while(scanner.hasNext()) {
     		str = scanner.nextLine();
     		

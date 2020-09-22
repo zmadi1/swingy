@@ -213,8 +213,9 @@ public class ConsoleInput {
     			System.out.println("E - is for moving EAST");
     	    	System.out.println();
     	    	System.out.println();
+//    	    	System.out.println(name);
 //    	    	System.out.println("Type confirm to start");
-    			map.map();
+    			map.map(name,str);
     		
 //    			map.south();
     		

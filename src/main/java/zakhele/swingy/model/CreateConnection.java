@@ -122,6 +122,11 @@ public class CreateConnection {
 		sql = "INSERT INTO user(name) VALUES('"+name+"')";
 		statement.execute(sql);
 	}
+	
+	public void updateLevel() throws SQLException {
+		String sql = "update HEROES SET level=2 where `name`= 'zakhele'";
+		statement.execute(sql);
+	}
 
 	public void createHeroTable() throws SQLException {
 
