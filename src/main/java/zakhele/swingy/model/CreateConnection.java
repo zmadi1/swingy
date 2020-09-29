@@ -123,8 +123,13 @@ public class CreateConnection {
 		statement.execute(sql);
 	}
 	
-	public void updateLevel() throws SQLException {
-		String sql = "update HEROES SET level=2 where `name`= 'zakhele'";
+	public void updateLevel(int level,String name,String str) throws SQLException {
+		String sql = "update HEROES SET level='"+level+"' where `name`= '"+name+"' and `class`= '"+str+"'";
+		statement.execute(sql);
+	}
+	
+	public void updateExp(int exp,String name,String str) throws SQLException {
+		String sql = "update HEROES SET exp='"+exp+"' where `name`= '"+name+"' and `class`= '"+str+"'";
 		statement.execute(sql);
 	}
 
@@ -170,8 +175,8 @@ public class CreateConnection {
 	public void close() throws IOException, SQLException {
 		conn.close();
 	}
-	public void addSubject(String last_name,String firstname) throws SQLException {
-		statement.executeUpdate("INSERT INTO `employee`(`first_name`,`last_name`) VALUES('"+ last_name + "','"+firstname+"')");
-	}
+//	public void addSubject(String last_name,String firstname) throws SQLException {
+//		statement.executeUpdate("INSERT INTO `employee`(`first_name`,`last_name`) VALUES('"+ last_name + "','"+firstname+"')");
+//	}
 
 }

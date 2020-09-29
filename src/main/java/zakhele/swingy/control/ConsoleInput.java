@@ -1,27 +1,42 @@
 package zakhele.swingy.control;
-
 import zakhele.swingy.model.CreateConnection;
 
+import static org.junit.Assert.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class ConsoleInput {
 
-    private static final String hp = null;
-	private  static String str;
+public class ConsoleInput {
+	
+    public static int hp ;
+    
+//    @NotEmpty(message="This can never be empty.")
+//	@NotNull(message="Sorry the username cant be null")
+	@NotBlank(message ="Please enter the correct username---------------------------------------------")
+	@Size(min=2, message="You should have atleast two characters")
+	public static String str;
+	
     private static  String hero;
+    
+
     private static String name;
 
 
     public  static void consoleOutput() throws IOException, SQLException{
     	
-
-        Scanner scanner = new Scanner(System.in);
-        while (scanner.hasNext()){
+//    	@NotEmpty(message="This can never be empty.")
+		Scanner scanner;
+		scanner = new Scanner(System.in);
+//        while (scanner.hasNext()){
         	
             str = scanner.nextLine();
+//            System.out.println(str.getClass().getName());
             
             if (str.toLowerCase().equals("create-user")) {
                 System.out.println("Please enter your username: ");
@@ -36,7 +51,7 @@ public class ConsoleInput {
             	
             }
 
-        }
+//        }
     }
     
     public  static void Username(String name) throws IOException, SQLException{
@@ -66,22 +81,21 @@ public class ConsoleInput {
             	conn.insertUser(str);
             	conn.createHeroTable();
             	character(str);
+            	
+            	
          
             	
             }else {
             	System.out.println("The username aready exist!");
             }
         }
+        conn.close();
     }
     
     
     public  static void loadUser() throws IOException, SQLException{
     	
     	CreateConnection conn = new CreateConnection();
-		
-		
-//		conn.createUserTable();
-//		conn.createHeroTable();
 		
     	
         Scanner scanner = new Scanner(System.in);
@@ -109,6 +123,7 @@ public class ConsoleInput {
             }
 
         }
+        conn.close();
     }
             
     public  static void choose() throws IOException, SQLException{
@@ -146,7 +161,70 @@ public class ConsoleInput {
                 	System.out.println("helm    "+myRs.getString("helm"));
                 		i++;
                 		}
-//                	choose();
+                	}
+                heroSetup(name,str);
+                }else if(str.toLowerCase().equals("viper")) {
+                         System.out.println("You have chosen the hunter these are your heroes stats");
+                         if(myRs.isBeforeFirst()) { 
+                         	int i = 1;
+
+
+                         	if(myRs.next()) {
+                         		System.out.println("["+i+".]"+
+                         	myRs.getString("class"));
+                         	System.out.println("level   "+myRs.getString("level"));
+                         	System.out.println("exp     "+myRs.getString("exp"));
+                         	System.out.println("hp      "+myRs.getString("hp"));
+                         	System.out.println("attack  "+myRs.getString("attack"));
+                         	System.out.println("defence "+myRs.getString("defence"));
+                         	System.out.println("weapon  "+myRs.getString("weapon"));
+                         	System.out.println("armor   "+myRs.getString("armor"));
+                         	System.out.println("helm    "+myRs.getString("helm"));
+                         		i++;
+                         		}
+                         }
+                         heroSetup(name,str);
+                    }else if(str.toLowerCase().equals("moonwalker")) {
+                            System.out.println("You have chosen the hunter these are your heroes stats");
+                            if(myRs.isBeforeFirst()) { 
+                            	int i = 1;
+
+
+                            	if(myRs.next()) {
+                            		System.out.println("["+i+".]"+
+                            	myRs.getString("class"));
+                            	System.out.println("level   "+myRs.getString("level"));
+                            	System.out.println("exp     "+myRs.getString("exp"));
+                            	System.out.println("hp      "+myRs.getString("hp"));
+                            	System.out.println("attack  "+myRs.getString("attack"));
+                            	System.out.println("defence "+myRs.getString("defence"));
+                            	System.out.println("weapon  "+myRs.getString("weapon"));
+                            	System.out.println("armor   "+myRs.getString("armor"));
+                            	System.out.println("helm    "+myRs.getString("helm"));
+                            		i++;
+                            		}
+                            }
+                           heroSetup(name,str);
+                 	}else if(str.toLowerCase().equals("night-crawler")) {
+                        System.out.println("You have chosen the hunter these are your heroes stats");
+                        if(myRs.isBeforeFirst()) { 
+                        	int i = 1;
+
+
+                        	if(myRs.next()) {
+                        		System.out.println("["+i+".]"+
+                        	myRs.getString("class"));
+                        	System.out.println("level   "+myRs.getString("level"));
+                        	System.out.println("exp     "+myRs.getString("exp"));
+                        	System.out.println("hp      "+myRs.getString("hp"));
+                        	System.out.println("attack  "+myRs.getString("attack"));
+                        	System.out.println("defence "+myRs.getString("defence"));
+                        	System.out.println("weapon  "+myRs.getString("weapon"));
+                        	System.out.println("armor   "+myRs.getString("armor"));
+                        	System.out.println("helm    "+myRs.getString("helm"));
+                        		i++;
+                        	}
+                        	heroSetup(name,str);
                 }else {
                 	System.out.println("Sorry the username of that name does not exist!");
                 }
@@ -157,17 +235,18 @@ public class ConsoleInput {
                 heroSetup(name,str);
 
                 //character();
-            } else if (str.toLowerCase().equals("viper")) {
-            	System.out.println("Please provide your username:");
+//            } else if (str.toLowerCase().equals("viper")) {
+//            	System.out.println("Please provide your username:");
             
             	
-            } else if (str.toLowerCase().equals("new")) {
-            	System.out.println("you are about to create a new hero");
+//            } else if (str.toLowerCase().equals("new")) {
+//            	System.out.println("you are about to create a new hero");
             	ExistingUsername(name);
             	
             }
 
         }
+        conn.close();
     }
     
 
@@ -213,42 +292,25 @@ public class ConsoleInput {
     			System.out.println("E - is for moving EAST");
     	    	System.out.println();
     	    	System.out.println();
-//    	    	System.out.println(name);
-//    	    	System.out.println("Type confirm to start");
-    			map.map(name,str);
+
+    	    	
+    			map.map(name,str,Map.x,Map.y);
+    			
     		
-//    			map.south();
     		
     		}
-//    		if(input.toLowerCase().equals("s")) {
-//				System.out.println("you have moved south");
-//    			map.south();
-//		    	
-//				
-//			}
+    		if(input.toLowerCase().equals("w"))
+				map.west(str, Map.x);
+    		else if(input.toLowerCase().equals("e"))
+    			map.east(str, Map.x);
+    		else if(input.toLowerCase().equals("s"))
+    			map.south(str, Map.y);
+    		else if(input.toLowerCase().equals("n"))
+    			map.north(str, Map.y);
+    		conn.close();
     		
     	}
     	System.out.println("Now that yout have selected your hero, you can type in start to start the game:");
-//    		System.out.println(weapon);
-//    		System.out.println(hp);
-//    		System.out.println(level);
-//    		System.out.println(attack);
-//    		System.out.println(armor);
-//    		System.out.println(helm);
-//    		System.out.println(defence);
-//    		System.out.println(exp);
-
-
-//    	System.out.println("level   "+myRs.getString("level"));
-//    	System.out.println("exp     "+myRs.getString("exp"));
-//    	System.out.println("hp      "+myRs.getString("hp"));
-//    	System.out.println("attack  "+myRs.getString("attack"));
-//    	System.out.println("defence "+myRs.getString("defence"));
-//    	System.out.println("weapon  "+myRs.getString("weapon"));
-//    	System.out.println("armor   "+myRs.getString("armor"));
-//    	System.out.println("helm    "+myRs.getString("helm"));
-//    	public hp = 
-    	
     }
     
 
@@ -276,6 +338,7 @@ public class ConsoleInput {
             
            
 //            }
+         conn.close();
     }
     
     
@@ -292,21 +355,22 @@ public class ConsoleInput {
             hero = scanner.nextLine();
 
             if (hero.toLowerCase().equals("hunter")){
-               	 conn.insetIntoDataBase(name, "Hunter", 1, 0, 0, 0, 0, 0, 0, 0);
+               	 conn.insetIntoDataBase(name, "Hunter", 1, 1000, 10, 0, 0, 0, 0, 0);
 
             }else if(hero.toLowerCase().equals("moonwalker")){
-            	conn.insetIntoDataBase(name, "moonwalker", 1, 0, 0, 0, 0, 0, 0, 0);
+            	conn.insetIntoDataBase(name, "moonwalker", 1,1000, 10, 0, 0, 0, 0, 0);
 
             }else if(hero.toLowerCase().equals("night-crawler")){
-            	conn.insetIntoDataBase(name, "night-crawler", 1, 0, 0, 0, 0, 0, 0, 0);
+            	conn.insetIntoDataBase(name, "night-crawler", 1, 1000, 10, 0, 0, 0, 0, 0);
 
             }else if(hero.toLowerCase().equals("viper")){
-            	conn.insetIntoDataBase(name, "viper", 3, 0, 0, 0, 0, 0, 0, 0);
+            	conn.insetIntoDataBase(name, "viper", 1, 1000, 10, 0, 0, 0, 0, 0);
 
             }else {
                 System.out.println("Invalid input choose between the given option: ");
             }
         }
+        conn.close();
     }
 
     public static void character(String name) throws IOException, SQLException {
@@ -323,21 +387,28 @@ public class ConsoleInput {
             hero = scanner.nextLine();
 
             if (hero.toLowerCase().equals("hunter")){
-               	 conn.insetIntoDataBase(str, "Hunter", 1, 0, 0, 0, 0, 0, 0, 0);
+               	 conn.insetIntoDataBase(str, "Hunter", 1, 1000, 10, 0, 0, 0, 0, 0);
+               	 System.out.println("Start your game");
+               	 heroSetup(str,"Hunter");
 
             }else if(hero.toLowerCase().equals("moonwalker")){
-            	conn.insetIntoDataBase(str, "moonwalker", 1, 0, 0, 0, 0, 0, 0, 0);
-
+            	conn.insetIntoDataBase(str, "moonwalker", 1, 1000, 10, 0, 0, 0, 0, 0);
+              	 System.out.println("Start your game");
+              	 heroSetup(str,"moonwalker");
             }else if(hero.toLowerCase().equals("night-crawler")){
-            	conn.insetIntoDataBase(str, "night-crawler", 1, 0, 0, 0, 0, 0, 0, 0);
-
+            	conn.insetIntoDataBase(str, "night-crawler", 1, 1000, 10, 0, 0, 0, 0, 0);
+              	 System.out.println("Start your game");
+              	 heroSetup(str,"night-crawler");
             }else if(hero.toLowerCase().equals("viper")){
-            	conn.insetIntoDataBase(str, "viper", 1, 0, 0, 0, 0, 0, 0, 0);
+            	conn.insetIntoDataBase(str, "viper", 1, 1000, 10, 0, 0, 0, 0, 0);
+              	 System.out.println("Start your game");
+              	 heroSetup(str,"viper");
 
             }else {
                 System.out.println("Invalid input choose between the given option: ");
             }
         }
+        conn.close();
     }
     
     
