@@ -43,8 +43,14 @@ public class Map {
 //		this.helm = helm;
 		
 	}
+//	int rand1 = 2;
+//	int rand2 = 2;
+	int i = 0;
+	int j=0;
+	VillanCreation villan = new VillanCreation();
 	
-	public void map(String name,String str,int x,int y) throws IOException, SQLException {
+	public  void map(String name,String str,int x,int y) throws IOException, SQLException {
+		
 		
 	
 
@@ -53,38 +59,69 @@ public class Map {
 		name1 = name;
 		str1 = str;		
     	int dimension = (level-1)*5+10-(level % 2);
-    	int rand1 = rand.nextInt(dimension-1);
-		int rand2 = rand.nextInt(dimension-1);
+    	int rand1 = 3;
+		int rand2 = 1;
+		
+    	int rand3 = rand.nextInt(dimension-1);
+		int rand4 = rand.nextInt(dimension-1);
     	String map[][] = new String[dimension][dimension];
-    	
+
     	
     	for(int row=0;row < dimension; ++row) {
     		for(int col= 0; col < dimension;++col) {
+
     			map[row][col] = "*";
     			if(row == rand1 && col == rand2)
     				map[rand1][rand2]= "V";
     			
+    			if(row == rand3 && col == rand4)
+    				map[rand3][rand4]= "W";
+    			
     			if(row == (dimension/2)+y && col ==(dimension/2)+x) {
     				map[row][col] = "@";
-    				if(rand1==row && rand2 == col) {
-        				System.out.println("fight");
-        			}
+    				
+    				i = col;
+    				j = row;
     			}
     			
     			
     			System.out.print(map[row][col] + "   ");
+
     			}
+    		
     		System.out.println();
+    		
     		}
+		if(j == (dimension/2)+y && i ==(dimension/2)+x) {
+			if(rand1==j && rand2 == i || rand2 == j && rand4 == i) {
+//				System.out.println("fight");
+				villan.VillanCreation();
+				
+			
+				
+			}
+		}
+//		System.out.println("Hello on the other side");
     	}
 		
 	
 	public void south(String str,int move) throws IOException, SQLException {
 		++y;
 		
+
+//		if(rand1==y && rand2 == x) {
+//			villan.VillanCreation();
+//				
+//		}
+		
+		
 		map(name1,str,x,y);
 		CreateConnection conn = new CreateConnection();
 		int dimension = (level-1)*5+10-(level % 2);
+		
+//		System.out.println((y)+" "+(x));
+//		System.out.println(rand1+" "+rand2);
+		
 		if(x >= (dimension/2) || y >= (dimension/2)) {
 			y=0;
 			x=0;

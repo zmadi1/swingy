@@ -15,6 +15,7 @@ import java.util.Scanner;
 public class ConsoleInput {
 	
     public static int hp ;
+    public static int attack;
     
 //    @NotEmpty(message="This can never be empty.")
 //	@NotNull(message="Sorry the username cant be null")
@@ -22,10 +23,10 @@ public class ConsoleInput {
 	@Size(min=2, message="You should have atleast two characters")
 	public static String str;
 	
-    private static  String hero;
+    public static  String hero;
     
 
-    private static String name;
+    public static String name;
 
 
     public  static void consoleOutput() throws IOException, SQLException{
@@ -33,7 +34,7 @@ public class ConsoleInput {
 //    	@NotEmpty(message="This can never be empty.")
 		Scanner scanner;
 		scanner = new Scanner(System.in);
-//        while (scanner.hasNext()){
+        while (scanner.hasNext()){
         	
             str = scanner.nextLine();
 //            System.out.println(str.getClass().getName());
@@ -51,7 +52,7 @@ public class ConsoleInput {
             	
             }
 
-//        }
+        }
     }
     
     public  static void Username(String name) throws IOException, SQLException{
@@ -257,9 +258,9 @@ public class ConsoleInput {
     	
     	ResultSet myRs = conn.UserStats(name, str);
     	
-    	int hp = 1;
+    	
     	int level = 1;
-    	int attack = 1;
+//    	int attack = 1;
     	int weapon = 1;
     	int armor = 1;
     	int helm = 1;

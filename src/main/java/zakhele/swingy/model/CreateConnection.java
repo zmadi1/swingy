@@ -128,6 +128,27 @@ public class CreateConnection {
 		statement.execute(sql);
 	}
 	
+	public void updateUserHP(int hp,String name,String str) throws SQLException {
+		String sql = "update HEROES SET hp='"+hp+"' where `name`= '"+name+"' and `class`= '"+str+"'";
+		statement.execute(sql);
+	}
+	
+	public void updateAttack(int attack,String name,String str) throws SQLException {
+		String sql = "update HEROES SET attack='"+attack+"' where `name`= '"+name+"' and `class`= '"+str+"'";
+		statement.execute(sql);
+	}
+	
+	
+	
+//	public ResultSet UserHp(String name,String hero) throws SQLException {
+//		String str = "SELECT `hp` FROM `HEROES` WHERE name = '"+name+"' and class = '"+hero+"'";
+//		
+//		ResultSet res =  statement.executeQuery(str);
+//		
+//		return res;
+//		
+//	}
+	
 	public void updateExp(int exp,String name,String str) throws SQLException {
 		String sql = "update HEROES SET exp='"+exp+"' where `name`= '"+name+"' and `class`= '"+str+"'";
 		statement.execute(sql);
