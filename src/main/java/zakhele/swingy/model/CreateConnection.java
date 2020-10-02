@@ -183,8 +183,14 @@ public class CreateConnection {
 		statement.execute(sql);
 	}
 	
-	public void connect() throws SQLException {
-		statement.execute("USE HEROES");
+	public void connect() {
+		try {
+			statement.execute("USE HEROES");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Sorry the database hasn't been created yet please create the username first");
+			System.exit(0);
+		}
 	
 	}
 	

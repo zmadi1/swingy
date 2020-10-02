@@ -61,6 +61,10 @@ public class Map {
     	int dimension = (level-1)*5+10-(level % 2);
     	int rand1 = 3;
 		int rand2 = 1;
+		int rand5 = rand.nextInt(dimension-1);
+		int rand6 = rand.nextInt(dimension-1);
+		int rand7 = rand.nextInt(dimension-1);
+		int rand8 = rand.nextInt(dimension-1);
 		
     	int rand3 = rand.nextInt(dimension-1);
 		int rand4 = rand.nextInt(dimension-1);
@@ -71,8 +75,11 @@ public class Map {
     		for(int col= 0; col < dimension;++col) {
 
     			map[row][col] = "*";
-    			if(row == rand1 && col == rand2)
-    				map[rand1][rand2]= "V";
+    			if((row == rand1 && col == rand2) || (row ==rand5 && col == rand6) || (row ==rand7 && col == rand8)) {
+    				map[rand1][rand2]= "P";
+    				map[rand5][rand6]= "H";
+    				map[rand7][rand8]= "M";
+    			}
     			
     			if(row == rand3 && col == rand4)
     				map[rand3][rand4]= "W";
@@ -93,13 +100,14 @@ public class Map {
     		
     		}
 		if(j == (dimension/2)+y && i ==(dimension/2)+x) {
-			if(rand1==j && rand2 == i || rand2 == j && rand4 == i) {
-//				System.out.println("fight");
-				villan.VillanCreation();
-				
-			
-				
+			if(rand1==j && rand2 == i || rand3 == j && rand4 == i) {
+				villan.VillanCreation1(VillanCreation.str1);	
 			}
+			if(rand5 == j && rand6 == i)
+				villan.VillanCreation(VillanCreation.str);
+			
+			if(j ==rand7 && i == rand8)
+				villan.VillanCreation1(VillanCreation.str2);
 		}
 //		System.out.println("Hello on the other side");
     	}
