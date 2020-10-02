@@ -16,6 +16,8 @@ public class Swingy {
 	public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
 	public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 	public static final String ANSI_RESET = "\u001B[0m";
+	
+	public static ConsoleInput console = new ConsoleInput();
 
 
 	public static void main(String[] args) throws IOException, SQLException {
@@ -63,7 +65,7 @@ public class Swingy {
 			System.out.println( ANSI_CYAN_BACKGROUND+"+++++                                       +++++"+ANSI_RESET);
 			System.out.println( ANSI_CYAN_BACKGROUND+"+++++++++++++++++++++++++++++++++++++++++++++++++"+ANSI_RESET);
 			System.out.println("Welcome to the console swingy game,select your OPTION:");
-			ConsoleInput.consoleOutput();
+			console.consoleOutput();
 
 		}else if (args[0].toLowerCase().equals("gui")){
 

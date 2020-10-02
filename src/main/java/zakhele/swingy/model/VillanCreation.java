@@ -14,31 +14,41 @@ public class VillanCreation {
 		
 	}
 	
-	public static String str= "Wu-Tang";
-	public static String str1 = "Pop-Smoke";
-	public static String str2 = "Meet-The-Woo";
+	public String str= "Wu-Tang";
+	public String str1 = "Pop-Smoke";
+	public String str2 = "Meet-The-Woo";
 	
 	
-	public static void VillanCreation(String name) throws IOException, SQLException {
+public  void VillanCreation(String name,String vname,String str1) throws IOException, SQLException {
 		
 		Scanner scanner = new Scanner(System.in);
-		String str ;
+
 		CreateConnection conn = new CreateConnection();
 		conn.connect();
+		ConsoleInput consoleInput = new ConsoleInput();
+		ResultSet myRs = conn.UserStats(vname,str1);
+		
+		int hp=0 ;
+		int attack1 = 0;
+		
+		if(myRs.next()) {
+			hp = myRs.getInt("hp");
+			attack1 = myRs.getInt("attack");
+
+		}
+
 		
 		
-		int playerHp = ConsoleInput.hp;
-		int villanHp = 7;
+		int playerHp = hp;
 		
-		
-//		int level = 1;
-//		int hp = 2900;
+		int villanHp = 2;
+
 		Random rand = new Random();
 		
 		
 		int attack = 1;
-		int playerAttack = rand.nextInt(ConsoleInput.attack);
-//		playerHp = playerHp - attack;
+		int playerAttack = 1 + rand.nextInt(attack1);
+
 		
 		System.out.println("You have came across a  "+name+" with "+villanHp+" HP do you want to fight or run");
 		
@@ -65,22 +75,24 @@ public class VillanCreation {
 
 						
 						System.out.println("GAME OVER the  - "+name+" has killed you");
-						conn.updateUserHP(10,ConsoleInput.name, ConsoleInput.str);
+						conn.updateUserHP(10,vname, str1);
 						System.exit(1);
 						work=false;
 					}
 					if(villanHp <= 0) {
 						System.out.println("Congratulation you have killed the "+name);
-						attacknum = ConsoleInput.attack;
+						attacknum = attack1;
 						++attacknum;
-						System.out.println(attacknum);
-						if(attacknum >= ConsoleInput.attack)
+//						System.out.println(attacknum);
+//						System.out.println(vname);
+	
+						if(attacknum >= attack1)
 						{
-//							attacknum  = ConsoleInput.attack;
-							conn.updateAttack(attacknum, ConsoleInput.name, ConsoleInput.str);
+//							
+							conn.updateAttack(attacknum,vname,str1);
 						}
 						
-						conn.updateUserHP(playerHp,ConsoleInput.name, ConsoleInput.str);
+						conn.updateUserHP(playerHp,vname, str1);
 						System.out.println();
 						System.out.println();
 		    			System.out.println("THESE ARE YOUR MOVEMENTS");
@@ -112,33 +124,44 @@ public class VillanCreation {
 				System.out.println("Invalid input only run or fight is allowed");
     	    	System.out.println();
     	    	System.out.println();
-				VillanCreation(str1) ;
+				VillanCreation(str,vname,str1) ;
 			}
 				
 		}
 		
+		
 	}
 	
-public static void VillanCreation1(String name) throws IOException, SQLException {
+public  void VillanCreation1(String name,String vname,String str1) throws IOException, SQLException {
 		
 		Scanner scanner = new Scanner(System.in);
-		String str ;
+
 		CreateConnection conn = new CreateConnection();
 		conn.connect();
+		ConsoleInput consoleInput = new ConsoleInput();
+		ResultSet myRs = conn.UserStats(vname,str1);
+		
+		int hp=0 ;
+		int attack1 = 0;
+		
+		if(myRs.next()) {
+			hp = myRs.getInt("hp");
+			attack1 = myRs.getInt("attack");
+
+		}
+
 		
 		
-		int playerHp = ConsoleInput.hp;
-		int villanHp = 7;
+		int playerHp = hp;
 		
-		
-//		int level = 1;
-//		int hp = 2900;
+		int villanHp = 2;
+
 		Random rand = new Random();
 		
 		
 		int attack = 1;
-		int playerAttack = 1+rand.nextInt(ConsoleInput.attack);
-//		playerHp = playerHp - attack;
+		int playerAttack = 1 + rand.nextInt(attack1);
+
 		
 		System.out.println("You have came across a  "+name+" with "+villanHp+" HP do you want to fight or run");
 		
@@ -165,22 +188,24 @@ public static void VillanCreation1(String name) throws IOException, SQLException
 
 						
 						System.out.println("GAME OVER the  - "+name+" has killed you");
-						conn.updateUserHP(10,ConsoleInput.name, ConsoleInput.str);
+						conn.updateUserHP(10,vname, str1);
 						System.exit(1);
 						work=false;
 					}
 					if(villanHp <= 0) {
 						System.out.println("Congratulation you have killed the "+name);
-						attacknum = ConsoleInput.attack;
+						attacknum = attack1;
 						++attacknum;
-						System.out.println(attacknum);
-						if(attacknum >= ConsoleInput.attack)
+//						System.out.println(attacknum);
+//						System.out.println(vname);
+	
+						if(attacknum >= attack1)
 						{
-//							attacknum  = ConsoleInput.attack;
-							conn.updateAttack(attacknum, ConsoleInput.name, ConsoleInput.str);
+//							
+							conn.updateAttack(attacknum,vname,str1);
 						}
 						
-						conn.updateUserHP(playerHp,ConsoleInput.name, ConsoleInput.str);
+						conn.updateUserHP(playerHp,vname, str1);
 						System.out.println();
 						System.out.println();
 		    			System.out.println("THESE ARE YOUR MOVEMENTS");
@@ -212,7 +237,7 @@ public static void VillanCreation1(String name) throws IOException, SQLException
 				System.out.println("Invalid input only run or fight is allowed");
     	    	System.out.println();
     	    	System.out.println();
-				VillanCreation(str1) ;
+    	    	VillanCreation(str,vname,str1);
 			}
 				
 		}

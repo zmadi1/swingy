@@ -1,7 +1,6 @@
-zakhele/swingy/model/Swingy.class
-zakhele/swingy/model/CreateConnection.class
-zakhele/swingy/model/VillanCreation.class
-zakhele/swingy/control/MyAnnotation.class
 zakhele/swingy/control/ConsoleInput.class
 zakhele/swingy/control/Map.class
+zakhele/swingy/model/Swingy.class
+zakhele/swingy/model/CreateConnection.class
 zakhele/swingy/control/nothin.class
+zakhele/swingy/model/VillanCreation.class

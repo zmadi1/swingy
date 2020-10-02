@@ -16,6 +16,7 @@ public class Map {
 	private String str1;
 	private int level;
 	private int number=1;
+	VillanCreation villanCreation = new VillanCreation();
 
 	
 	private int exp;
@@ -52,7 +53,7 @@ public class Map {
 	public  void map(String name,String str,int x,int y) throws IOException, SQLException {
 		
 		
-	
+//		sSystem.out.println(str+""+name);
 
 		Scanner start = new Scanner(System.in);
 		String startLoop;
@@ -101,13 +102,13 @@ public class Map {
     		}
 		if(j == (dimension/2)+y && i ==(dimension/2)+x) {
 			if(rand1==j && rand2 == i || rand3 == j && rand4 == i) {
-				villan.VillanCreation1(VillanCreation.str1);	
+				villan.VillanCreation1(villanCreation.str1,name,str);	
 			}
 			if(rand5 == j && rand6 == i)
-				villan.VillanCreation(VillanCreation.str);
+				villan.VillanCreation(villanCreation.str1,name,str);
 			
 			if(j ==rand7 && i == rand8)
-				villan.VillanCreation1(VillanCreation.str2);
+				villan.VillanCreation1(villanCreation.str1,name,str);
 		}
 //		System.out.println("Hello on the other side");
     	}
@@ -142,8 +143,11 @@ public class Map {
 				conn.updateLevel(number,name1,str1);
 				int numb = (level-1)*450;
 				
+				System.out.println(name1);
+				System.out.println(str1);
 				int exp = (int) (level*1000+ Math.pow(numb, 2));
 				conn.updateExp(exp,name1,str1);
+				
 			}
 			conn.connect();
 			ResultSet myRs = conn.findHero(name1, str1);

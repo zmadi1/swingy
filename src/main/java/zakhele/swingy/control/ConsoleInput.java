@@ -1,58 +1,58 @@
 package zakhele.swingy.control;
 import zakhele.swingy.model.CreateConnection;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
-
-
-import java.lang.reflect.*;
  
-@interface MyAnnotation{
-	String str = "Sorry the database is not created yet";
-} 
+//@interface MyAnnotation{
+//	String str = "Sorry the database is not created yet";
+//} 
 
 
 public class ConsoleInput {
 	
-    public static int hp ;
-    public static int attack;
+    public  int hp =12 ;
+    public  int attack;
     
-//    @NotEmpty(message="This can never be empty.")
-//	@NotNull(message="Sorry the username cant be null")
-//	@NotBlank(message ="Please enter the correct username---------------------------------------------")
-//	@Size(min=2, message="You should have atleast two characters")
-	public static String str;
+    @NotBlank()
+    @NotNull(message = "Name cannot be null")
+    @Valid @Size(min = 2, max = 16, message = "Name length should not be less than 2 or greater than 16")
+	public String str;
 	
-    public static  String hero;
+    @Valid @NotBlank()
+    @NotNull(message = "Name cannot be null")
+    @Size(min = 2, max = 16, message = "Name length should not be less than 2 or greater than 16")
+    public   String hero;
+    
+    
+    @NotBlank()
+    @Valid @NotNull(message = "Name cannot be null")
+    @Size(min = 2, max = 16, message = "Name length should not be less than 2 or greater than 16")
+    public  String name;
     
 
-    public static String name;
-    
-//	@NotNull(message="Sorry the username cant be null")
-    public static ResultSet myRs;
+    public  ResultSet myRs;
 
 
-    public  static void consoleOutput() throws IOException, SQLException{
+    public   void consoleOutput() throws IOException, SQLException{
     	
-//    	@NotEmpty(message="This can never be empty.")
 		Scanner scanner;
 		scanner = new Scanner(System.in);
+//		String str;
+		
         while (scanner.hasNext()){
         	
             str = scanner.nextLine();
-//            System.out.println(str.getClass().getName());
-            
             if (str.toLowerCase().equals("create-user")) {
-                System.out.println("Please enter your username: ");
-                Username(str);
-
-                //character();
+                Username();
             } else if (str.toLowerCase().equals("load save")) {
-            	System.out.println("Please provide your username:");
             	loadUser();
-            	
             } else if (str.toLowerCase().equals("gui")) {
             	
             }else {
@@ -63,7 +63,7 @@ public class ConsoleInput {
         }
     }
     
-    public  static void Username(String name) throws IOException, SQLException{
+    public   void Username() throws IOException, SQLException{
     	
     	CreateConnection conn = new CreateConnection();
  
@@ -72,43 +72,60 @@ public class ConsoleInput {
 		conn.connection(sql);
 		conn.connect();
 		
-		conn.createUserTable();
+		
 //		conn.createHeroTable();
+		
+//		System.out.println(str);
 		
 
         Scanner scanner = new Scanner(System.in);
-        
+//        System.out.println(scanner.nextLine());
+        System.out.print("Please enter your username: ");
         while (scanner.hasNext()){
         	
             str = scanner.nextLine();
             
-            ResultSet myRs = conn.checkUser(str);
+      
             
-            
-            if(!myRs.next()) {
-            	
-            	conn.insertUser(str);
-            	conn.createHeroTable();
-            	character(str);
-            	
-            	
-         
-            	
+            if(!str.isEmpty() && str.length() > 1) {
+            	conn.createUserTable();
+            	@Valid
+                ResultSet myRs = conn.checkUser(str);
+                
+                
+                if(!myRs.next()) {
+                	
+                	conn.insertUser(str);
+                	conn.createHeroTable();
+                	System.out.println(str);
+                	character(str);
+                	
+                	
+             
+                	
+                }else {
+                	System.out.println("The username aready exist!");
+                	Username();
+                }
             }else {
-            	System.out.println("The username aready exist!");
+            	System.out.println("The username cannot be null;");
+            	System.exit(1);
             }
+            
+
         }
         conn.close();
     }
     
     
-    public  static void loadUser() throws IOException, SQLException{
+    public  void loadUser() throws IOException, SQLException{
     	
     	CreateConnection conn = new CreateConnection();
 		
     	
         Scanner scanner = new Scanner(System.in);
         
+        System.out.println("Please provide your username:");
         while (scanner.hasNext()){
         	
             str = scanner.nextLine();
@@ -127,17 +144,25 @@ public class ConsoleInput {
             		System.out.println("["+i+".]"+myRs.getString("class"));
             		i++;
             		}
+          
             	choose();
             }else {
-            	System.out.println("Sorry the username of that name does not exist!");
-            	ExistingUsername(name);
+            	System.out.println("Sorry the username of that name does not exist please try again!");
+            	System.out.println();
+            	System.out.println();
+            	loadUser();
+            	
+            	//            	ExistingUsername(name);
+//            	choose();
+//            	System.exit(0);
+//            	System.out.println("eheeeeee");
             }
 
         }
         conn.close();
     }
             
-    public  static void choose() throws IOException, SQLException{
+    public   void choose() throws IOException, SQLException{
     	
         Scanner scanner = new Scanner(System.in);
         CreateConnection conn = new CreateConnection();
@@ -146,6 +171,8 @@ public class ConsoleInput {
         
         System.out.print("To create a new Hero type new or choose your existing heroes type new: ");
         conn.connect();
+    	System.out.println();
+    	System.out.println();
         while (scanner.hasNext()){
         	
         	
@@ -239,24 +266,12 @@ public class ConsoleInput {
                         		i++;
                         	}
                         	heroSetup(name,str);
+                        	
                        
                 }else {
-                	System.out.println("Sorry the username of that name does not exist!");
+                	System.out.println("Sorry the username of that name does not exist please try again!");
+//                	choose();
                 }
-
-                
-                
-//                System.out.println(name);
-//                heroSetup(name,str);
-
-                //character();
-//            } else if (str.toLowerCase().equals("viper")) {
-//            	System.out.println("Please provide your username:");
-            
-            	
-//            } else if (str.toLowerCase().equals("new")) {
-//            	System.out.println("you are about to create a new hero");
-//            	
             	
             }
 
@@ -265,7 +280,7 @@ public class ConsoleInput {
     }
     
 
-    public static void heroSetup(String name,String str) throws SQLException, IOException {
+    public void heroSetup(String name,String str) throws SQLException, IOException {
     	CreateConnection conn = new CreateConnection();
     	conn.connect();
     	Scanner scanner = new Scanner(System.in);
@@ -332,7 +347,7 @@ public class ConsoleInput {
     
 
     
-    public  static void ExistingUsername(String name) throws IOException, SQLException{
+    public  void ExistingUsername(String name) throws IOException, SQLException{
     	
     	CreateConnection conn = new CreateConnection();
  
@@ -359,7 +374,7 @@ public class ConsoleInput {
     }
     
     
-    public static void characterUpdate(String name) throws IOException, SQLException {
+    public void characterUpdate(String name) throws IOException, SQLException {
     	CreateConnection conn = new CreateConnection();
     	
         System.out.println("Select your Hero OPTIONS: 'Hunter' | 'moowalker' | 'night-crawler' | 'viper' ");
@@ -404,7 +419,7 @@ public class ConsoleInput {
         conn.close();
     }
 
-    public static void character(String name) throws IOException, SQLException {
+    public  void character(String name) throws IOException, SQLException {
     	CreateConnection conn = new CreateConnection();
     	
         System.out.println("Select your Hero OPTIONS: 'Hunter' | 'moowalker' | 'night-crawler' | 'viper' ");
@@ -418,22 +433,22 @@ public class ConsoleInput {
             hero = scanner.nextLine();
 
             if (hero.toLowerCase().equals("hunter")){
-               	 conn.insetIntoDataBase(str, "Hunter", 1, 1000, 10, 1, 0, 0, 0, 0);
+               	 conn.insetIntoDataBase(name, "Hunter", 1, 1000, 10, 1, 0, 0, 0, 0);
                	 System.out.println("Start your game");
-               	 heroSetup(str,"Hunter");
+               	 heroSetup(name,"Hunter");
 
             }else if(hero.toLowerCase().equals("moonwalker")){
-            	conn.insetIntoDataBase(str, "moonwalker", 1, 1000, 10, 1, 0, 0, 0, 0);
+            	conn.insetIntoDataBase(name, "moonwalker", 1, 1000, 10, 1, 0, 0, 0, 0);
               	 System.out.println("Start your game");
-              	 heroSetup(str,"moonwalker");
+              	 heroSetup(name,"moonwalker");
             }else if(hero.toLowerCase().equals("night-crawler")){
-            	conn.insetIntoDataBase(str, "night-crawler", 1, 1000, 10, 1, 0, 0, 0, 0);
+            	conn.insetIntoDataBase(name, "night-crawler", 1, 1000, 10, 1, 0, 0, 0, 0);
               	 System.out.println("Start your game");
-              	 heroSetup(str,"night-crawler");
+              	 heroSetup(name,"night-crawler");
             }else if(hero.toLowerCase().equals("viper")){
-            	conn.insetIntoDataBase(str, "viper", 1, 1000, 10, 1, 0, 0, 0, 0);
+            	conn.insetIntoDataBase(name, "viper", 1, 1000, 10, 1, 0, 0, 0, 0);
               	 System.out.println("Start your game");
-              	 heroSetup(str,"viper");
+              	 heroSetup(name,"viper");
 
             }else {
                 System.out.println("Invalid input choose between the given option: ");
