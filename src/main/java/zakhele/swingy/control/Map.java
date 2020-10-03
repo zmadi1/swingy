@@ -56,7 +56,7 @@ public class Map {
 //		sSystem.out.println(str+""+name);
 
 		Scanner start = new Scanner(System.in);
-		String startLoop;
+//		String startLoop;
 		name1 = name;
 		str1 = str;		
     	int dimension = (level-1)*5+10-(level % 2);
@@ -105,7 +105,7 @@ public class Map {
 				villan.VillanCreation1(villanCreation.str1,name,str);	
 			}
 			if(rand5 == j && rand6 == i)
-				villan.VillanCreation(villanCreation.str1,name,str);
+				villan.villanCreation(villanCreation.str1,name,str);
 			
 			if(j ==rand7 && i == rand8)
 				villan.VillanCreation1(villanCreation.str1,name,str);

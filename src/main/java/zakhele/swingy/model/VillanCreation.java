@@ -19,7 +19,7 @@ public class VillanCreation {
 	public String str2 = "Meet-The-Woo";
 	
 	
-public  void VillanCreation(String name,String vname,String str1) throws IOException, SQLException {
+public  void villanCreation(String name,String vname,String str1) throws IOException, SQLException {
 		
 		Scanner scanner = new Scanner(System.in);
 
@@ -124,7 +124,7 @@ public  void VillanCreation(String name,String vname,String str1) throws IOExcep
 				System.out.println("Invalid input only run or fight is allowed");
     	    	System.out.println();
     	    	System.out.println();
-				VillanCreation(str,vname,str1) ;
+				villanCreation(str,vname,str1) ;
 			}
 				
 		}
@@ -237,7 +237,7 @@ public  void VillanCreation1(String name,String vname,String str1) throws IOExce
 				System.out.println("Invalid input only run or fight is allowed");
     	    	System.out.println();
     	    	System.out.println();
-    	    	VillanCreation(str,vname,str1);
+    	    	villanCreation(str,vname,str1);
 			}
 				
 		}

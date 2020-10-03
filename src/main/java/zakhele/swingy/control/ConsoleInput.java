@@ -15,26 +15,32 @@ import java.util.Scanner;
 //} 
 
 
+
 public class ConsoleInput {
 	
     public  int hp =12 ;
     public  int attack;
     
-    @NotBlank()
+    @Valid
+    @NotBlank(message = "Name cannot be blank")
     @NotNull(message = "Name cannot be null")
-    @Valid @Size(min = 2, max = 16, message = "Name length should not be less than 2 or greater than 16")
-	public String str;
+    @Size(min = 5, max = 16, message = "Name length should not be less than 2 or greater than 16")
+	public String str="";
 	
-    @Valid @NotBlank()
+    @NotBlank(message = "Name cannot be blank")
     @NotNull(message = "Name cannot be null")
-    @Size(min = 2, max = 16, message = "Name length should not be less than 2 or greater than 16")
+    @Size(min = 5, max = 16, message = "Name length should not be less than 2 or greater than 16")
     public   String hero;
     
     
-    @NotBlank()
-    @Valid @NotNull(message = "Name cannot be null")
-    @Size(min = 2, max = 16, message = "Name length should not be less than 2 or greater than 16")
+    @NotBlank(message = "Name cannot be blank")
+    @NotNull(message = "Name cannot be null")
+    @Size(min = 5, max = 16, message = "Name length should not be less than 2 or greater than 16")
     public  String name;
+    
+	public String getStr() {
+		return this.str;
+	}
     
 
     public  ResultSet myRs;
@@ -81,32 +87,43 @@ public class ConsoleInput {
         Scanner scanner = new Scanner(System.in);
 //        System.out.println(scanner.nextLine());
         System.out.print("Please enter your username: ");
+        
         while (scanner.hasNext()){
         	
             str = scanner.nextLine();
+           
+          
+         
             
       
             
-            if(!str.isEmpty() && str.length() > 1) {
-            	conn.createUserTable();
-            	@Valid
-                ResultSet myRs = conn.checkUser(str);
-                
-                
-                if(!myRs.next()) {
-                	
-                	conn.insertUser(str);
-                	conn.createHeroTable();
-                	System.out.println(str);
-                	character(str);
-                	
-                	
-             
-                	
-                }else {
-                	System.out.println("The username aready exist!");
-                	Username();
-                }
+            if(!str.isBlank()) {
+            	if(str.length() >=2) {
+            		
+                    ResultSet myRs = conn.checkUser(str);
+                    
+                    
+                    if(!myRs.next()) {
+                    	
+                    	conn.insertUser(str);
+                    	conn.createHeroTable();
+                    	System.out.println(str);
+                    	character(str);
+                    	conn.createUserTable();
+                    	
+                    	
+                 
+                    	
+                    }else {
+                    	System.out.println("it can't be null!");
+                    	Username();
+                    }
+            		
+            	}else {
+            		System.out.println("The length should be greater or equal to 2");
+            		
+            	}
+            	
             }else {
             	System.out.println("The username cannot be null;");
             	System.exit(1);
@@ -152,10 +169,6 @@ public class ConsoleInput {
             	System.out.println();
             	loadUser();
             	
-            	//            	ExistingUsername(name);
-//            	choose();
-//            	System.exit(0);
-//            	System.out.println("eheeeeee");
             }
 
         }
@@ -382,29 +395,24 @@ public class ConsoleInput {
         Scanner scanner = new Scanner(System.in);
         
         conn.connect();
-//        myRs = conn.checkUserHero(str);
-
 
         while(scanner.hasNext()){
             hero = scanner.nextLine();
 
             if (hero.toLowerCase().equals("hunter")){
                	 conn.insetIntoDataBase(name, "Hunter", 1, 1000, 10, 1, 0, 0, 0, 0);
-//               	while(myRs.next()) {
-//            		System.out.println("["+i+".]"+myRs.getString("class"));
-//            		i++;
-//            		}
+
                	heroSetup(name,str);
                	loadUser();
 
             }else if(hero.toLowerCase().equals("moonwalker")){
             	conn.insetIntoDataBase(name, "moonwalker", 1,1000, 10, 1, 0, 0, 0, 0);
-//            	heroSetup(name,str);
+
             	loadUser();
 
             }else if(hero.toLowerCase().equals("night-crawler")){
             	conn.insetIntoDataBase(name, "night-crawler", 1, 1000, 10, 1, 0, 0, 0, 0);
-//            	heroSetup(name,str);
+
             	loadUser();
 
             }else if(hero.toLowerCase().equals("viper")){
