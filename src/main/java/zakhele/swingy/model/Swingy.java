@@ -14,13 +14,13 @@ public class Swingy {
 	
 	
 	
-	public static Configuration<?> config = Validation.byDefaultProvider().configure();
-	public static ValidatorFactory factory = config.buildValidatorFactory();
-	   
-	public static void   printError(String message) {
-		  System.err.println(message);
-		   System.exit(2);
-	}
+//	public static Configuration<?> config = Validation.byDefaultProvider().configure();
+//	public static ValidatorFactory factory = config.buildValidatorFactory();
+//	   
+//	public static void   printError(String message) {
+//		  System.err.println(message);
+//		   System.exit(2);
+//	}
 	
 
 	public static final String ANSI_BLACK_BACKGROUND = "\u001B[40m";
@@ -63,19 +63,21 @@ public class Swingy {
 			System.out.println( ANSI_CYAN_BACKGROUND+"+++++                                       +++++"+ANSI_RESET);
 			System.out.println( ANSI_CYAN_BACKGROUND+"+++++       Welcome To Swingy               +++++"+ANSI_RESET);
 			System.out.println( ANSI_CYAN_BACKGROUND+"+++++               OPTIONS                 +++++"+ANSI_RESET);
-			System.out.println( ANSI_CYAN_BACKGROUND+"+++++          'create-user' | 'load save'| 'gui'+++++"+ANSI_RESET);
+			System.out.println( ANSI_CYAN_BACKGROUND+"+++++          'create-user' | 'load save'| +++++"+ANSI_RESET);
 			System.out.println( ANSI_CYAN_BACKGROUND+"+++++                                       +++++"+ANSI_RESET);
 			System.out.println( ANSI_CYAN_BACKGROUND+"+++++++++++++++++++++++++++++++++++++++++++++++++"+ANSI_RESET);
 			System.out.println("Welcome to the console swingy game,select your OPTION:");
 			console.consoleOutput();
 
 		}else if (args[0].toLowerCase().equals("gui")){
+			System.out.println("Sorry the gui is not working at the moment");
+			System.exit(2);
 			CreateHeroViewGUI createherogui = new CreateHeroViewGUI();
 			createherogui.createHeroViewGUI();
 		}else {
 			System.out.println("You have entered invalid argument you should choose betweeen 'console' or 'gui'");
 		}
-		factory.close();
+//		factory.close();
 
 	}
 

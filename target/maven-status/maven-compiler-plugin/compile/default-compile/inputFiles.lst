@@ -1,7 +1,8 @@
 /home/zakhele/Videos/swingy/src/main/java/zakhele/swingy/control/nothin.java
 /home/zakhele/Videos/swingy/src/main/java/zakhele/swingy/model/Swingy.java
-/home/zakhele/Videos/swingy/src/main/java/zakhele/swingy/control/Map.java
 /home/zakhele/Videos/swingy/src/main/java/zakhele/swingy/model/VillanCreation.java
+/home/zakhele/Videos/swingy/src/main/java/zakhele/swingy/model/HeroValidationException.java
+/home/zakhele/Videos/swingy/src/main/java/zakhele/swingy/view/Map.java
 /home/zakhele/Videos/swingy/src/main/java/zakhele/swingy/view/CreateHeroViewGUI.java
 /home/zakhele/Videos/swingy/src/main/java/zakhele/swingy/control/ConsoleInput.java
 /home/zakhele/Videos/swingy/src/main/java/zakhele/swingy/model/CreateConnection.java

@@ -1,4 +1,4 @@
-package zakhele.swingy.control;
+package zakhele.swingy.view;
 
 import java.io.IOException;
 import java.lang.Math;
@@ -20,12 +20,12 @@ public class Map {
 
 	
 	private int exp;
-//	private int hp;
-//	private int attack;
-//	private int defence;
-//	private int weapon;
-//	private int armor;
-//	private int helm;
+	private int hp=0;
+	private int attack;
+	private int defence;
+	private int weapon;
+	private int armor;
+	private int helm;
 //	int j=1;
 //	int k=1;
 	public static int y=0;
@@ -33,15 +33,15 @@ public class Map {
 	
 	
 	
-	Map(int level,int exp,int hp,int attack,int defence ,int weapon, int armor, int helm){
+	public Map(int level,int exp,int hp,int attack,int defence ,int weapon, int armor, int helm){
 		this.level = level;
 		this.exp = exp;
-//		this.hp = hp;
-//		this.attack =attack ;
-//		this.defence = defence;
-//		this.weapon = weapon;
-//		this.armor = armor;
-//		this.helm = helm;
+		this.hp = hp;
+		this.attack =attack ;
+		this.defence = defence;
+		this.weapon = weapon;
+		this.armor = armor;
+		this.helm = helm;
 		
 	}
 //	int rand1 = 2;

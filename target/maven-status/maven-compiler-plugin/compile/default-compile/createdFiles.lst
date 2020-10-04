@@ -3,7 +3,8 @@ zakhele/swingy/model/Swingy.class
 zakhele/swingy/model/CreateConnection.class
 zakhele/swingy/model/VillanCreation.class
 zakhele/swingy/view/CreateHeroViewGUI$TitleScreenHandler.class
+zakhele/swingy/model/HeroValidationException.class
+zakhele/swingy/view/Map.class
 zakhele/swingy/control/ConsoleInput.class
-zakhele/swingy/control/Map.class
 zakhele/swingy/control/nothin.class
 zakhele/swingy/view/CreateHeroViewGUI.class

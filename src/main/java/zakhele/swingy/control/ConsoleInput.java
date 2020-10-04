@@ -1,41 +1,51 @@
 package zakhele.swingy.control;
-import zakhele.swingy.model.CreateConnection;
+import zakhele.swingy.view.Map;
 
+import javax.validation.ConstraintViolation;
 import javax.validation.Valid;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.IOException;
+import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
+import java.util.Set;
+import java.util.logging.Level;
+import zakhele.swingy.model.*;
+
+
  
 //@interface MyAnnotation{
 //	String str = "Sorry the database is not created yet";
 //} 
 
 
-
+//@Entity
 public class ConsoleInput {
 	
-    public  int hp =12 ;
+    public  int hp =10 ;
     public  int attack;
     
     @Valid
-    @NotBlank(message = "Name cannot be blank")
+//    @NotBlank(message = "Name cannot be blank")
     @NotNull(message = "Name cannot be null")
-    @Size(min = 5, max = 16, message = "Name length should not be less than 2 or greater than 16")
-	public String str="";
+    @Size(min = 2, max = 16, message = "Name length should not be less than 3 or greater than 16")
+	public String str;
 	
-    @NotBlank(message = "Name cannot be blank")
-    @NotNull(message = "Name cannot be null")
-    @Size(min = 5, max = 16, message = "Name length should not be less than 2 or greater than 16")
+//    @NotBlank(message = "Name cannot be blank")
+//    @NotNull(message = "Name cannot be null")
+//    @Size(min = 5, max = 16, message = "Name length should not be less than 2 or greater than 16")
     public   String hero;
     
     
-    @NotBlank(message = "Name cannot be blank")
-    @NotNull(message = "Name cannot be null")
-    @Size(min = 5, max = 16, message = "Name length should not be less than 2 or greater than 16")
+//    @NotBlank(message = "Name cannot be blank")
+//    @NotNull(message = "Name cannot be null")
+//    @Size(min = 5, max = 16, message = "Name length should not be less than 2 or greater than 16")
     public  String name;
     
 	public String getStr() {
@@ -69,6 +79,36 @@ public class ConsoleInput {
         }
     }
     
+    public void validateHero() throws HeroValidationException {
+    	
+        java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+
+        Set<ConstraintViolation<ConsoleInput>> constraintViolations = validator.validate(this);
+        if (constraintViolations.size() != 0) {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append("Hero validation error(s): ");
+            stringBuilder.append(constraintViolations.size());
+            stringBuilder.append("\n");
+            for (ConstraintViolation<ConsoleInput> cv : constraintViolations) {
+                stringBuilder.append("property: [");
+                stringBuilder.append(cv.getPropertyPath());
+                stringBuilder.append("], value: [");
+                stringBuilder.append(cv.getInvalidValue());
+                stringBuilder.append("], message: [");
+                stringBuilder.append(cv.getMessage());
+                stringBuilder.append("]\n");
+                
+//                System.out.println("+++++++++++++++++++Hello from the other side");
+            }
+            throw new HeroValidationException(stringBuilder.toString());
+        }
+    }
+    public void showErrorMessage(String message) {
+        System.out.println("Error: " + message);
+    }
+    
     public   void Username() throws IOException, SQLException{
     	
     	CreateConnection conn = new CreateConnection();
@@ -91,6 +131,16 @@ public class ConsoleInput {
         while (scanner.hasNext()){
         	
             str = scanner.nextLine();
+      	  
+	        try {
+	           
+	        	validateHero();
+//	        	console.consoleOutput();
+	        } catch (IllegalArgumentException | HeroValidationException e) {
+	            showErrorMessage(e.getMessage());
+//	            view.getUserInput();
+	            return;
+	        }
            
           
          
@@ -99,6 +149,7 @@ public class ConsoleInput {
             
             if(!str.isBlank()) {
             	if(str.length() >=2) {
+            		conn.createUserTable();
             		
                     ResultSet myRs = conn.checkUser(str);
                     
@@ -109,7 +160,7 @@ public class ConsoleInput {
                     	conn.createHeroTable();
                     	System.out.println(str);
                     	character(str);
-                    	conn.createUserTable();
+                    	
                     	
                     	
                  

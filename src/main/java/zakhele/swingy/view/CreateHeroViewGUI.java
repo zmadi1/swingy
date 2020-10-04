@@ -9,9 +9,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class CreateHeroViewGUI {
+public class CreateHeroViewGUI extends  ConsoleInput {
 	
 	JFrame window;
+	JTextField input = new JTextField(50);
 	Container con;
 	JPanel  titleNamePanel,startButtonPanel,mainTextPanel,choiceButtonPanel,playerPanel;
 	JLabel titleNameLabel,hpLabel,hpLabelNumber,weaponLabel,weaponLabelName ;
@@ -83,6 +84,7 @@ public class CreateHeroViewGUI {
 		mainTextArea.setFont(normalFont);
 		mainTextArea.setLineWrap(true);
 		mainTextPanel.add(mainTextArea);
+		mainTextPanel.add(input);
 		
 		choiceButtonPanel = new JPanel();
 		choiceButtonPanel.setBounds(250,350,300,150);
@@ -163,7 +165,7 @@ public class CreateHeroViewGUI {
 		monsterHP = 20;
 		weapon = "knife";
 		weaponLabelName.setText(weapon);
-		hpLabelNumber.setText(""+playerHP);
+		hpLabelNumber.setText(super.name);
 
 	}
 
